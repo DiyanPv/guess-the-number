@@ -1,25 +1,44 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 import Title from '../components/ui/Title'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { generateRandomNumberBetween } from '../utils/generateNumber'
 import GuessedNumber from '../components/game/GuessedNumber'
 import PrimaryButton from '../components/ui/PrimaryButton.'
 
-
+let minBoundary = 1;
+let maxBoundary = 100;
 
 const GameScreen = ({ userNumber }) => {
 
-
-const nextGuessHandler = (direction) => {
-switch(direction){
-    case `lower`: break;
-    case `higher` : break;
-}
-}
-
-    const initialGuess = generateRandomNumberBetween(1, 100, userNumber)
+    const initialGuess = generateRandomNumberBetween(minBoundary, maxBoundary, userNumber)
     const [currentGuess, setcurrentGuess] = useState(initialGuess);
+
+    useEffect(() => {
+        if (currentGuess === userNumber) {
+
+        }
+
+    }, [])
+
+    const nextGuessHandler = (direction) => {
+
+        if ((direction === `lower` && currentGuess < userNumber) || (direction !== `lower` && currentGuess > userNumber)) {
+            Alert.alert(`Incorrect direction!`, [{ text: `Sorry`, style: `cancel` }]);
+            return;
+        }
+
+        if (direction === `lower`) {
+            maxBoundary = currentGuess
+
+
+        } else {
+
+            minBoundary = currentGuess + 1;
+        }
+        const newRandomNumber = generateRandomNumberBetween(minBoundary, maxBoundary, currentGuess)
+        setcurrentGuess(newRandomNumber)
+    }
     return (
         <View style={styles.screen}>
             <Title titleName={`Opponent's Guess`}></Title>
@@ -30,10 +49,10 @@ switch(direction){
 
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton >+</PrimaryButton>
+                    <PrimaryButton onClick={nextGuessHandler.bind(this, `lower`)}>-</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton >-</PrimaryButton>
+                    <PrimaryButton onClick={nextGuessHandler}>+</PrimaryButton>
                 </View>
             </View>
 
