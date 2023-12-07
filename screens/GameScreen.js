@@ -9,22 +9,22 @@ import PrimaryButton from '../components/ui/PrimaryButton.'
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const GameScreen = ({ userNumber }) => {
+const GameScreen = ({ userNumber, onGameOver }) => {
 
     const initialGuess = generateRandomNumberBetween(minBoundary, maxBoundary, userNumber)
     const [currentGuess, setcurrentGuess] = useState(initialGuess);
 
     useEffect(() => {
         if (currentGuess === userNumber) {
-
+            onGameOver()
         }
 
-    }, [])
+    }, [currentGuess, userNumber, onGameOver])
 
     const nextGuessHandler = (direction) => {
 
-        if ((direction === `lower` && currentGuess < userNumber) || (direction !== `lower` && currentGuess > userNumber)) {
-            Alert.alert(`Incorrect direction!`, [{ text: `Sorry`, style: `cancel` }]);
+        if ((direction === `lower` && currentGuess < userNumber) || (direction === `higher` && currentGuess > userNumber)) {
+            Alert.alert('Error:', "Incorrect direction")
             return;
         }
 
@@ -32,7 +32,7 @@ const GameScreen = ({ userNumber }) => {
             maxBoundary = currentGuess
 
 
-        } else {
+        } else if (direction === `higher`) {
 
             minBoundary = currentGuess + 1;
         }
@@ -52,7 +52,7 @@ const GameScreen = ({ userNumber }) => {
                     <PrimaryButton onClick={nextGuessHandler.bind(this, `lower`)}>-</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton onClick={nextGuessHandler}>+</PrimaryButton>
+                    <PrimaryButton onClick={nextGuessHandler.bind(this, `higher`)}>+</PrimaryButton>
                 </View>
             </View>
 

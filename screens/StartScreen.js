@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import PrimaryButton from '../components/ui/PrimaryButton.'
 
-const StartScreen = () => {
+const StartScreen = ({ pickedNumberHandler }) => {
     const [enteredNumber, setEnteredNumber] = useState(``)
 
     const numberInputHandler = (inputText) => {
@@ -24,7 +24,7 @@ const StartScreen = () => {
             console.log(`Insufficient input`)
             return
         }
-
+        pickedNumberHandler(chosenNumer)
     }
 
     return (
