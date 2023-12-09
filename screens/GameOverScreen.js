@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         justifyContent: `center`,
         flex: 1,
         alignItems: `center`,
-  
+
     },
     text: {
         fontWeight: `bold`,

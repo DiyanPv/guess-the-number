@@ -11,7 +11,7 @@ export default function App() {
   const [userNumber, setUserNumber] = useState()
   const [gameIsOver, setGameIsOver] = useState(true)
 
-  function gameOverHandler() {
+  function gameOverHandler() {1
     setGameIsOver(true)
   }
 

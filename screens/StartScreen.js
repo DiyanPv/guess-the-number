@@ -2,6 +2,7 @@ import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
 import PrimaryButton from '../components/ui/PrimaryButton.'
+import Title from '../components/ui/Title'
 
 const StartScreen = ({ pickedNumberHandler }) => {
     const [enteredNumber, setEnteredNumber] = useState(``)
@@ -28,17 +29,23 @@ const StartScreen = ({ pickedNumberHandler }) => {
     }
 
     return (
-        <View style={styles.inputContainer}>
-            <TextInput style={styles.numberInput} maxLength={2} keyboardType='number-pad' autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler} />
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onClick={resetInputHandler}>Reset</PrimaryButton>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onClick={confirmInputHandler} >Confirm</PrimaryButton>
+
+        <View style={styles.rootContainer}>
+            <Title titleName={`Guess my number!`} />
+            <View style={styles.inputContainer}>
+                <TextInput style={styles.numberInput} maxLength={2} keyboardType='number-pad' autoCorrect={false} value={enteredNumber} onChangeText={numberInputHandler} />
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onClick={resetInputHandler}>Reset</PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onClick={confirmInputHandler} >Confirm</PrimaryButton>
+                    </View>
                 </View>
             </View>
+
         </View>
+
     )
 
 }
@@ -50,13 +57,16 @@ const styles = StyleSheet.create({
 
         flexDirection: `row`
     },
+    rootContainer: {
+        marginTop: 100
+    },
     inputContainer: {
         justifyContent: `center`,
         alignItems: `center`,
         marginHorizontal: 16,
         borderRadius: 8,
         padding: 16,
-        marginTop: 100,
+        marginTop: 36,
         backgroundColor: `#72063c`,
         elevation: 6,
         shadowOffset: 4,

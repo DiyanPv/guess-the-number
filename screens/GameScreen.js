@@ -11,7 +11,7 @@ let maxBoundary = 100;
 
 const GameScreen = ({ userNumber, onGameOver }) => {
 
-    const initialGuess = generateRandomNumberBetween(minBoundary, maxBoundary, userNumber)
+    const initialGuess = generateRandomNumberBetween(1, 100, userNumber)
     const [currentGuess, setcurrentGuess] = useState(initialGuess);
 
     useEffect(() => {
